@@ -226,6 +226,10 @@ func TestExtraData(t *testing.T) {
 			return
 		}
 
+		if _, included := msg.Extra["C"]; included {
+			t.Error("extra fields without a prefixed underscore should be omitted")
+		}
+
 		if int64(msg.Extra["_a"].(float64)) != extra["_a"].(int64) {
 			t.Errorf("_a didn't roundtrip (%v != %v)", int64(msg.Extra["_a"].(float64)), extra["_a"].(int64))
 			return
